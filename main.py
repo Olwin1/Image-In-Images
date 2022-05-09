@@ -34,8 +34,8 @@ start = [0, 0]
 for x in range(int(o_width)):
     print(str(round(int(x) / original.width * 100)) + "% Complete")
     for y in range(int(o_height)):
-        #final.paste(createPixel(original.getpixel((x, y))), (start[0], start[1]))
-        final.paste(createPixel((255, 0, 128)), (start[0], start[1]))
+        final.paste(createPixel(original.getpixel((x, y))), (start[0], start[1]))
+        #final.paste(createPixel((255, 0, 128)), (start[0], start[1]))
         start[1] += height
     start[1] = 0
     start[0] += width
