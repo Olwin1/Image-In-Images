@@ -1,4 +1,5 @@
 from PIL import Image
+import numpy as np
 picture = Image.open("./images/RS.png")
 original = Image.open("./images/shrek_smaller.png")
 
@@ -12,21 +13,18 @@ def calcColour(a, b):
     def avg(w, z):
         numb = w + z
         return round(numb / 2)
-        #return z
-        if w == z:
-            print(True)
-        #return w
-    return (avg(a[0], b[0]), avg(a[1], b[1]), avg(a[2], b[2]))
+    return [avg(a[0], b[0]), avg(a[1], b[1]), avg(a[2], b[2])]
 def createPixel(newcolour):
     picture2 = Image.open("./images/RS.png")
-    for x in range(width):
-        for y in range(height):
-            current_color = picture2.getpixel( (x,y) )
+    array = np.array(picture2)
+    for x in range(len(array[0][0])):
+        for y in range(len(array[0])):
+            current_color = array[x][y]
             ####################################################################
             # Change Pixel Colour
             ####################################################################
-            picture2.putpixel( (x,y), calcColour(current_color, newcolour))
-    return picture2
+            array[x][y] = calcColour(current_color, newcolour)
+    return Image.fromarray(np.uint8(array))
     #picture.show()
 final = Image.new('RGB', (picture.height * original.height, picture.width * original.width))
 start = [0, 0]
