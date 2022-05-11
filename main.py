@@ -1,7 +1,7 @@
 from PIL import Image
 import numpy as np
 picture = Image.open("./images/RS.png")
-original = Image.open("./images/shrek_smaller.png")
+original = Image.open("./images/shrek.png")
 
 # Get the size of the image
 width, height = picture.size
@@ -11,11 +11,12 @@ o_width, o_height = original.size
 def calcColour(a, b):
 
     def avg(w, z):
-        numb = w + z
-        return round(numb / 2)
+        numb = w + z + z
+        return round(numb / 3)
     return [avg(a[0], b[0]), avg(a[1], b[1]), avg(a[2], b[2])]
+picture2 = Image.open("./images/RS.png")
+
 def createPixel(newcolour):
-    picture2 = Image.open("./images/RS.png")
     array = np.array(picture2)
     for x in range(len(array[0][0])):
         for y in range(len(array[0])):
@@ -26,7 +27,7 @@ def createPixel(newcolour):
             array[x][y] = calcColour(current_color, newcolour)
     return Image.fromarray(np.uint8(array))
     #picture.show()
-final = Image.new('RGB', (picture.height * original.height, picture.width * original.width))
+final = Image.new('RGB', (picture.width * original.width, picture.height * original.height))
 start = [0, 0]
 
 for x in range(int(o_width)):
@@ -38,5 +39,5 @@ for x in range(int(o_width)):
     start[1] = 0
     start[0] += width
 print("Saving...")
-final.save("./output.png")
+final.save("./output2.png")
 print("Successfully Saved As output2.png")
